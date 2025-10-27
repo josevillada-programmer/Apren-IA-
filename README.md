@@ -71,12 +71,74 @@ Su objetivo es ayudar especialmente a aquellos con **problemas de aprendizaje**,
 ```bash
 git clone https://github.com/tuusuario/aprendia.git
 cd aprendia
-
 ```
+
+### 2️⃣ Configurar el entorno
+
+* Instala las dependencias de PHP y asegúrate de tener un servidor local (como XAMPP o Laragon).
+
+* Configura la base de datos en MySQL (archivo config.php o .env).
+
+* Añade tus credenciales de las APIs en las variables de entorno:
+
+```bash
+OPENAI_API_KEY=tu_api_key
+GEMINI_API_KEY=tu_api_key
+```
+
+### 3️⃣ Ejecutar el proyecto
+
+Abre el proyecto en tu navegador:
+
+```bash
+http://localhost/aprendia
+```
+
+### 🧠 Arquitectura del sistema
+
+```ASCII
+Frontend (HTML/CSS/JS)
+        ↓
+Backend (PHP)
+        ↓
+MySQL (gestión de usuarios, progreso y temarios)
+        ↓
+N8N (automatización de flujos de IA)
+        ↓
+OpenAI + Gemini (generación de contenidos adaptativos)
+```
+
+### 👥 Equipo de desarrollo
+
+| Rol | Integrante |
+|------|--------------|
+| 🎨 Diseñador | [Drcoronitas](https://github.com/DrCoronitas) |
+| 💻 Programador | [AlexanderAG123s](https://github.com/AlexanderAG123s) |
+| 💻 Programador | [Brau2624](https://github.com/Brau2624) |
+| 💻 Programador | [eduardofloresquijada-web](https://github.com/eduardofloresquijada-web) |
+| ⚙️ Implementador | [josevillada-programmer](https://github.com/josevillada-programmer) |
+| 📎Documentador | [ClippyAsistente](https://github.com/ClippyAsistente) |
+| 🛠️ Soporte | [Renotlacuache](https://github.com/Renotlacuache) |
+
+### 🎯 Propósito social
+
+AprendIA surge ante la decadencia del sistema educativo en México, buscando reforzar las áreas de oportunidad con una herramienta accesible, interactiva y adaptada a cada alumno.
+
+### 🚀 Próximos pasos
+
+* ❌ Integración completa de analíticas de rendimiento.
+* ❌ Creación de demo interactivo y video explicativo.
+* ❌ Optimización del diseño para dispositivos móviles.
+* ❌ Implementación de un panel para docentes.
+
+### 📜 Licencia
+
+Este proyecto se distribuye bajo la licencia MIT.
+Puedes usar, modificar y compartir libremente citando la fuente.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-❤️-red"/>
-  <img src="https://img.shields.io/badge/Hackathon-EdTech%202025-blueviolet"/>
+  <img src="https://img.shields.io/badge/Hackathon-Hack4Edu%202025-blueviolet"/>
   <img src="https://img.shields.io/badge/Educación%20para-todos-yellow"/>
   <img src="https://img.shields.io/badge/Hecho%20en-México-green"/>
 </p>
