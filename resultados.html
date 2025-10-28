@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados del Test - Brainrot</title>
+  <style>
+    :root {
+      --neon1: #ff00ff;
+      --neon2: #00ffff;
+      --good: #00ff66;
+      --medium: #ffcc00;
+      --bad: #ff0033;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, #ff0066, #6600ff, #00ffff);
+      background-size: 600% 600%;
+      animation: fondo 7s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    @keyframes fondo {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px var(--neon1);
+      text-align: center;
+      width: 400px;
+      animation: flotar 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-5px); }
+    }
+
+    .glitch {
+      position: relative;
+      font-weight: 900;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: white;
+      animation: flicker 1.5s infinite;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    .glitch::before {
+      color: var(--neon1);
+      animation: glitchTop 1s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      color: var(--neon2);
+      animation: glitchBot 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchTop {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(-2px, -2px); }
+      100% { transform: translate(2px, 2px); }
+    }
+
+    @keyframes glitchBot {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(2px, 2px); }
+      100% { transform: translate(-2px, -2px); }
+    }
+
+    .datos {
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .resultado {
+      margin-top: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--neon2);
+    }
+
+    .tema {
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .barra {
+      height: 20px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progreso {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 1.5s ease;
+    }
+
+    .nivel {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: var(--neon1);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--neon2);
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px white;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="glitch" data-text="RESULTADOS">RESULTADOS</h1>
+
+    <div class="datos" id="datos"></div>
+
+    <div class="resultado">
+      <div class="tema">📘 Lectura</div>
+      <div class="barra"><div id="lecturaBarra" class="progreso"></div></div>
+      <div class="nivel" id="lecturaNivel"></div>
+    </div>
+
+    <div class="resultado">
+      <div class="tema">🧮 Matemáticas</div>
+      <div class="barra"><div id="mateBarra" class="progreso"></div></div>
+      <div class="nivel" id="mateNivel"></div>
+    </div>
+
+    <button onclick="volver()">🔁 Repetir Test</button>
+    <button onclick="IniciarAventura()">🌟 Iniciar Aventura</button>
+  </div>
+
+  <script>
+    // Simullaciones de datos(Porfa cambien conforme a loq eu vallan a hacer si necesitas algo mas me avisan)
+    const lectura = Math.floor(Math.random() * 101);  // 0 a 100
+    const mate = Math.floor(Math.random() * 101);
+
+    const nombre = localStorage.getItem("nombre") || "Estudiante";
+    const edad = localStorage.getItem("edad") || "?";
+    const grado = localStorage.getItem("grado") || "?";
+    const grupo = localStorage.getItem("grupo") || "?";
+    const escuela = localStorage.getItem("escuela") || "?";
+
+    document.getElementById("datos").innerHTML = `
+      👤 <b>${nombre}</b> <br>
+      🎓 ${grado} ${grupo} | 🏫 ${escuela} <br>
+      🎂 Edad: ${edad} años
+    `;
+
+    function asignarNivel(puntaje) {
+      if (puntaje >= 80) return { nivel: "Avanzado 🚀", color: "var(--good)" };
+      if (puntaje >= 50) return { nivel: "Intermedio ⚡", color: "var(--medium)" };
+      return { nivel: "Básico 🧩", color: "var(--bad)" };
+    }
+
+    const lecturaNivel = asignarNivel(lectura);
+    const mateNivel = asignarNivel(mate);
+
+    document.getElementById("lecturaBarra").style.width = lectura + "%";
+    document.getElementById("lecturaBarra").style.backgroundColor = lecturaNivel.color;
+    document.getElementById("lecturaNivel").textContent = `${lecturaNivel.nivel} (${lectura}%)`;
+
+    document.getElementById("mateBarra").style.width = mate + "%";
+    document.getElementById("mateBarra").style.backgroundColor = mateNivel.color;
+    document.getElementById("mateNivel").textContent = `${mateNivel.nivel} (${mate}%)`;
+
+    function volver() {
+      window.location.href = "test_inicio.html";
+    }
+    function IniciarAventura() {
+      window.location.href = "lecciones.html";
+    }
+  </script>
+</body>
+</html>
