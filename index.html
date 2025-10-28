@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprend//IA//</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <img src=""C:\Users\redol\OneDrive\Desktop\AprendIA\upscalemedia-transformed.png"" alt="Aprend//IA//" class="logo">
+        
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="#matematicas">MATEMÁTICAS</a></li>
+                    <li><a href="#lectura">LECTURA</a></li>
+                    <li><a href="#ortografia">ORTOGRAFÍA</a></li>
+                    <li><a href="#progreso">MI PROGRESO</a></li>
+                </ul>
+            </nav>
+            <form class="search-form">
+                <input type="search" placeholder="Buscar tema...">
+                <button type="submit">🔍</button>
+            </form>
+            
+            <button id="login-btn" class="btn-login" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+            
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h2>¡Aprender es una Aventura!</h2>
+            <p>Convierte las materias de primaria en un juego. Gana puntos, sube de nivel y domina matemáticas, lectura y ortografía.</p>
+            
+            <form class="filter-form">
+                <select name="grado">
+                    <option value="">¿En qué grado estás?</option>
+                    <option value="1">1ro de Primaria</option>
+                    <option value="2">2do de Primaria</option>
+                    <option value="3">3ro de Primaria</option>
+                    <option value="4">4to de Primaria</option>
+                    <option value="5">5to de Primaria</option>
+                    <option value="6">6to de Primaria</option>
+                </select>
+                <select name="materia">
+                    <option value="">¿Qué materia quieres?</option>
+                    <option value="mates">Matemáticas</option>
+                    <option value="lectura">Lectura</option>
+                    <option value="comprension">Comprensión</option>
+                    <option value="ortografia">Ortografía</option>
+                </select>
+                <select name="actividad">
+                    <option value="">¿Tipo de actividad?</option>
+                    <option value="juego">Juego</option>
+                    <option value="leccion">Lección</option>
+                    <option value="examen">Test</option>
+                </select>
+                <button type="submit" class="btn-buscar">¡Jugar!</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="Materias">
+        <h2>Materias</h2>
+        <ul>
+            <li>Matemáticas</li>
+            <li>Español (Lectura, Ortografía, Comprensión)</li>
+        </ul>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>¿Tienes preguntas? Contáctanos...</p>
+    </section>
+
+    
+    <script src="index.js"></script>
+    <script src="server.js" defer></script>
+
+</body>
+</html>

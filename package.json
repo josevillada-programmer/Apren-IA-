@@ -1,0 +1,24 @@
+{
+  "name": "aprendia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josevillada-programmer/prueba-aprendia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josevillada-programmer/prueba-aprendia/issues"
+  },
+  "homepage": "https://github.com/josevillada-programmer/prueba-aprendia#readme"
+}
