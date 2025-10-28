@@ -86,27 +86,16 @@
 
     function verificarCodigo() {
         const codigoIngresado = document.getElementById('codigo').value;
-
-        if (codigoIngresado === codigoGenerado) {
-            document.getElementById('mensaje').textContent = "¡Código verificado correctamente! Redirigiendo...";
+        
+        if(codigoIngresado === codigoGenerado) {
+            document.getElementById('mensaje').textContent = "¡Código verificado correctamente!";
             document.getElementById('mensaje').style.color = 'green';
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const token = urlParams.get('token');
-
-            if (token) {
-                localStorage.setItem('token', token);
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
-            } else {
-                document.getElementById('mensaje').textContent = "Error: No se encontró la sesión. Por favor, inicia sesión de nuevo.";
-                document.getElementById('mensaje').style.color = 'red';
-            }
-
+            window.location.href = "lecciones.html";
+            
         } else {
             document.getElementById('mensaje').textContent = "Código incorrecto, intenta de nuevo.";
             document.getElementById('mensaje').style.color = 'red';
+            
             generarYMostrarCodigo();
             document.getElementById('codigo').value = '';
         }
