@@ -4,15 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprend//IA//</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/dark-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+        .user-menu-trigger {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .avatar-container {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, #007bff, #0056b3); /* Blue gradient */
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 55px; /* Position below the header */
+            background-color: #ffffff; /* Changed to white */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000; /* Increased z-index */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .dropdown-menu .user-info {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+        }
+        .dropdown-menu a {
+            color: #333; /* Changed to dark gray for visibility */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .dropdown-menu a i {
+            margin-right: 10px;
+            color: #555; /* Darker icon color */
+        }
+        .dropdown-menu a:hover {background-color: #f0f0f0;} /* Lighter hover background */
+        .divider {
+            height: 1px;
+            margin: 8px 0;
+            overflow: hidden;
+            background-color: #ddd; /* Lighter divider */
+        }
+        .logout-link {
+            color: #ff4d4d !important;
+        }
+    </style>
 </head>
 <body>
 
     <header class="main-header">
-        <img src=""C:\Users\redol\OneDrive\Desktop\AprendIA\upscalemedia-transformed.png"" alt="Aprend//IA//" class="logo">
+        <img src="#" alt="Aprend//IA//" class="logo">
         
         <div class="header-right">
-            <nav>
+            <nav class="main-nav">
                 <ul>
                     <li><a href="#matematicas">MATEMÁTICAS</a></li>
                     <li><a href="#lectura">LECTURA</a></li>
@@ -24,11 +90,43 @@
                 <input type="search" placeholder="Buscar tema...">
                 <button type="submit">🔍</button>
             </form>
-            
+
+            <!-- User session dropdown -->
+            <div id="user-session" class="user-menu" style="display: none;">
+                <div id="user-menu-trigger" class="user-menu-trigger">
+                    <div class="avatar-container">
+                        <img id="user-avatar" src="img/12225881-removebg-preview.png" alt="Avatar" class="avatar">
+                    </div>
+                </div>
+                <div id="user-menu-dropdown" class="dropdown-menu">
+                    <div class="user-info">
+                        <span id="dropdown-user-name"></span>
+                        <div id="streak-container" style="display: none;">
+                            <i class="fas fa-book" style="font-size: 20px; margin-right: 5px;"></i>
+                            <span id="streak-days"></span>
+                        </div>
+                    </div>
+                    <a href="profile.html"><i class="fas fa-user"></i>Mi Perfil</a>
+                    <a href="#settings"><i class="fas fa-cog"></i>Ajustes</a>
+                    <a href="#theme"><i class="fas fa-palette"></i>Tema</a>
+                    <div class="divider"></div>
+                    <a href="#" id="logout-btn" class="logout-link"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
+                </div>
+            </div>
+
             <button id="login-btn" class="btn-login" onclick="window.location.href='login.html'">Iniciar Sesión</button>
             
+            <button id="hamburger-btn" class="hamburger-menu">&#9776;</button>
         </div>
     </header>
+
+    <div id="mobile-sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn">&times;</a>
+        <a href="#matematicas">MATEMÁTICAS</a>
+        <a href="#lectura">LECTURA</a>
+        <a href="#ortografia">ORTOGRAFÍA</a>
+        <a href="#progreso">MI PROGRESO</a>
+    </div>
 
     <section id="hero">
         <div class="hero-content">
@@ -77,8 +175,8 @@
     </section>
 
     
-    <script src="index.js"></script>
-    <script src="server.js" defer></script>
+    <script src="js/dropdown.js"></script>
+    <script src="js/sidebar.js"></script>
 
 </body>
 </html>

@@ -163,9 +163,51 @@
   0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
   20%, 24%, 55% { opacity: 0.3; }
 }
+    .toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+    }
+
+    .toast.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+
+    @-webkit-keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
+
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
   </style>
 </head>
 <body>
+  <div id="snackbar"></div>
   <div class="blob blob1"></div>
   <div class="blob blob2"></div>
 
@@ -173,6 +215,8 @@
     <div class="glitch" data-text="REGISTRO BRAINROT">REGISTRO BRAINROT</div>
     <h2>Crea tu cuenta</h2>
 
+    <input type="text" id="first_name" placeholder="Nombre" required><br>
+    <input type="text" id="last_name" placeholder="Apellido" required><br>
     <input type="email" id="email" placeholder="Correo electrónico" required><br>
     <input type="password" id="password" placeholder="Contraseña" required><br>
     <input type="password" id="confirm" placeholder="Confirmar contraseña" required><br>
@@ -188,27 +232,57 @@
   </div>
 
   <script>
-    function registrar() {
+    function showToast(message) {
+      const toast = document.getElementById('snackbar');
+      toast.textContent = message;
+      toast.className = "toast show";
+      setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    async function registrar() {
+      const first_name = document.getElementById('first_name').value;
+      const last_name = document.getElementById('last_name').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const confirm = document.getElementById('confirm').value;
+      const confirmPassword = document.getElementById('confirm').value;
 
-      if (email && password && confirm) {
-        if (password === confirm) {
-          // Aquí puedes conectar tu base de datos
-          alert("¡Registro exitoso! 🎉");
-          window.location.href = "verificacion.html";
+      if (!first_name || !last_name || !email || !password || !confirmPassword) {
+        showToast('Por favor completa todos los campos');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showToast('Las contraseñas no coinciden');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ first_name, last_name, email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showToast('¡Registro exitoso!');
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 2000);
         } else {
-          alert("Las contraseñas no coinciden ⚠️");
+          showToast(data.msg || 'Error en el registro');
         }
-      } else {
-        alert("Por favor completa todos los campos 😵");
+      } catch (error) {
+        showToast('Error de conexión con el servidor');
       }
     }
 
     function socialLogin(provider) {
       alert("Registrándote con " + provider + " 🤪");
-      window.location.href = "verificacion.html";
+      // window.location.href = "verificacion.html"; // This will be removed or updated later
     }
   </script>
 </body>

@@ -1,0 +1,262 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Nunito", "Poppins", sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    height: 60px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header-right nav ul {
+    display: flex;
+    gap: 1rem;
+}
+
+.header-right nav a {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #555;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-right nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Moved down by 5px */
+    right: 0; /* Start from right */
+    width: 0;
+    height: 4px; /* Thicker underline */
+    background-color: #D90429; /* Example color, can be changed */
+    transition: width 0.3s ease-out;
+}
+
+.header-right nav a:hover::after {
+    width: 100%; /* Expand to full width on hover */
+    left: 0; /* Ensure it covers from left to right */
+    right: auto; /* Reset right property */
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-form input {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 4px 0 0 4px;
+}
+
+.search-form button {
+    border: 1px solid #ccc;
+    border-left: none;
+    background-color: #f0f0f0;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+}
+
+#hero {
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    padding: 6rem 2rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+#hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); 
+    z-index: -1;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.filter-form select {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-family: "Nunito", "Poppins", sans-serif;
+    font-size: 1rem;
+    background-color: #fcfcfc;
+    min-width: 180px;
+}
+
+.btn-buscar {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #D90429;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-buscar:hover {
+    background-color: #EF233C;
+}
+
+#Materias,
+#contacto {
+    padding: 3rem 2rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+.btn-login {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.main-nav {
+    display: flex; /* Use flexbox for alignment */
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #333;
+    display: block;
+    transition: 0.3s;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar a:last-of-type {
+    border-bottom: none;
+}
+
+.sidebar a:hover {
+    color: #007bff;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    font-size: 36px;
+    margin-top: -10px;
+    margin-left: 60px;
+    color: #333;
+    border-bottom: none; /* Remove border from close button */
+}
+
+.hamburger-menu {
+    display: none; /* Hidden by default */
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555; /* Default color */
+    padding: 5px 10px; /* Add some padding */
+    border-radius: 5px; /* Slightly rounded corners */
+    transition: background-color 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+}
+
+@media (max-width: 768px) {
+    .header-right nav {
+        display: none; /* Hide regular nav on mobile */
+    }
+    .hamburger-menu {
+        display: block; /* Show hamburger menu on mobile */
+    }
+}

@@ -1,0 +1,107 @@
+/* Dark Theme Styles */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-theme .main-header {
+    background-color: #1a1a1a;
+    border-bottom-color: #333;
+}
+
+.dark-theme .header-right nav a {
+    color: #e0e0e0;
+}
+
+.dark-theme .search-form input {
+    background-color: #2a2a2a;
+    border-color: #333;
+    color: #e0e0e0;
+}
+
+.dark-theme .search-form button {
+    background-color: #2a2a2a;
+    border-color: #333;
+}
+
+.dark-theme .dropdown-menu {
+    background-color: #2a2a2a;
+}
+
+.dark-theme .dropdown-menu a {
+    color: #e0e0e0;
+}
+
+.dark-theme .dropdown-menu a:hover {
+    background-color: #3a3a3a;
+}
+
+.dark-theme .divider {
+    background-color: #444;
+}
+
+.dark-theme #hero::before {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.dark-theme .filter-form select {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #333;
+}
+
+.dark-theme #Materias, .dark-theme #contacto {
+    background-color: #1a1a1a;
+}
+
+.dark-theme .card {
+    background-color: #2a2a2a;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.dark-theme .profile-card {
+    background-color: #2a2a2a;
+}
+
+.dark-theme .slot {
+    background-color: #3a3a3a;
+    color: #888;
+}
+
+.dark-theme .stat-card.points {
+    background-color: #e74c3c; /* Darker red for points */
+}
+
+.dark-theme .stat-card.accuracy {
+    background-color: #3498db; /* Darker blue for accuracy */
+}
+
+.dark-theme .stat-card.lessons {
+    background-color: #2ecc71; /* Darker green for lessons */
+}
+
+.dark-theme .sidebar {
+    background-color: #1a1a1a;
+}
+
+.dark-theme .sidebar a {
+    color: #e0e0e0;
+    border-bottom: 1px solid #555; /* Darker separator for dark theme */
+}
+
+.dark-theme .sidebar a:hover {
+    color: #fff;
+}
+
+.dark-theme .sidebar .close-btn {
+    color: #e0e0e0;
+    border-bottom: none; /* Remove border from close button */
+}
+
+.dark-theme .hamburger-menu {
+    color: #e0e0e0;
+}
+
+.dark-theme .hamburger-menu:hover {
+    background-color: #3a3a3a;
+}
