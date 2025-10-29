@@ -1,7 +1,7 @@
 <!-- Badges -->
 
 <!-- Badges principales -->
-![Status](https://img.shields.io/badge/Status-40%-yellow)
+![Status](https://img.shields.io/badge/Status-40%25-yellow)
 ![Hackathon](https://img.shields.io/badge/Hackathon-Hack4Edu%202025-blueviolet)
 ![Made_with_AI](https://img.shields.io/badge/Made%20with-🤖%20IA-blue)
 ![License](https://img.shields.io/badge/Licencia-MIT-green)
@@ -159,3 +159,4 @@ Puedes usar, modificar y compartir libremente citando la fuente.
   <img src="https://img.shields.io/badge/Educación%20para-todos-yellow"/>
   <img src="https://img.shields.io/badge/Hecho%20en-México-green"/>
 </p>
+
