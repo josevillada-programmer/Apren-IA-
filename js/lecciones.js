@@ -193,7 +193,7 @@ function setPlaneX(x){
   progressBar.style.width = pct + '%';
 }
 
-vport.addEventListener('mousedown', (e) => {
+viewport.addEventListener('mousedown', (e) => {
   state.isDown = true; state.startX = e.clientX + state.x;
   viewport.style.cursor = 'grabbing';
 });
@@ -203,7 +203,7 @@ window.addEventListener('mousemove', (e) => {
   const newX = state.startX - e.clientX;
   setPlaneX(newX);
 });
-vport.addEventListener('wheel', (e) => {
+viewport.addEventListener('wheel', (e) => {
   e.preventDefault();
   setPlaneX(state.x + e.deltaY * 1.6);
 },{passive:false});
