@@ -1,7 +1,7 @@
 <!-- Badges -->
 
 <!-- Badges principales -->
-![Status](https://img.shields.io/badge/Status-En%20desarrollo-yellow)
+![Status](https://img.shields.io/badge/Status-40%-yellow)
 ![Hackathon](https://img.shields.io/badge/Hackathon-Hack4Edu%202025-blueviolet)
 ![Made_with_AI](https://img.shields.io/badge/Made%20with-🤖%20IA-blue)
 ![License](https://img.shields.io/badge/Licencia-MIT-green)
@@ -10,7 +10,6 @@
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
-![PHP](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Gemini-4285F4?logo=google&logoColor=white)
@@ -23,9 +22,9 @@
 ![Education](https://img.shields.io/badge/Categoría-Educación-orange)
 
 
-# 📚 AprendIA
+# 📚 Aprend//IA//
 
-**AprendIA** es una plataforma educativa inteligente que utiliza **IA generativa** para crear **planes de estudio personalizados** en **matemáticas y gramática** para niños de primaria y secundaria.  
+**Aprend//IA//** es una plataforma educativa inteligente que utiliza **IA generativa** para crear **planes de estudio personalizados** en **matemáticas y gramática** para niños de primaria y secundaria.  
 Su objetivo es ayudar especialmente a aquellos con **problemas de aprendizaje**, adaptando los contenidos al **nivel, edad y progreso individual** de cada estudiante.  
 
 > 🧠 Una experiencia de aprendizaje personalizada, divertida y efectiva.  
@@ -69,8 +68,8 @@ Su objetivo es ayudar especialmente a aquellos con **problemas de aprendizaje**,
 
 ### 1️⃣ Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/aprendia.git
-cd aprendia
+git clone https://github.com/josevillada-programmer/Apren-IA-.git
+cd Apren-IA-
 ```
 
 ### 2️⃣ Configurar el entorno
@@ -91,7 +90,7 @@ GEMINI_API_KEY=tu_api_key
 Abre el proyecto en tu navegador:
 
 ```bash
-http://localhost/aprendia
+http://localhost/Apren-IA-
 ```
 
 ### 🧠 Arquitectura del sistema
@@ -99,9 +98,9 @@ http://localhost/aprendia
 ```ASCII
 Frontend (HTML/CSS/JS)
         ↓
-Backend (PHP)
+Backend (NODE.js)
         ↓
-MySQL (gestión de usuarios, progreso y temarios)
+MySQL (gestión de usuarios, progreso, temarios y grupos)
         ↓
 N8N (automatización de flujos de IA)
         ↓
@@ -126,6 +125,8 @@ AprendIA surge ante la decadencia del sistema educativo en México, buscando ref
 
 ### 🚀 Próximos pasos
 
+Los avances siguientes luego de la primera versión:
+
 * ❌ Integración completa de analíticas de rendimiento.
 * ❌ Creación de demo interactivo y video explicativo.
 * ❌ Optimización del diseño para dispositivos móviles.
@@ -135,6 +136,22 @@ AprendIA surge ante la decadencia del sistema educativo en México, buscando ref
 
 Este proyecto se distribuye bajo la licencia MIT.
 Puedes usar, modificar y compartir libremente citando la fuente.
+
+### Actualizaciones
+
+* Creación del modelo de base de datos.
+* Avance en la documento de desarrollo.
+* Diseño de interfaces básicas.
+* Conexión a Backend de interfaces básicas.
+* Logos actualizados.
+
+### Proximamente
+
+* Diseño finalizado.
+* Implementación de API's de Inteligencia Artificial.
+* Implementación de LaTeX para lenguaje matemático.
+* Configuración de prompts.
+* Responsividad.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-❤️-red"/>
