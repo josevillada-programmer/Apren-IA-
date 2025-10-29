@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados del Test - Brainrot</title>
+  <link rel="stylesheet" href="../css/resultados.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="glitch" data-text="RESULTADOS">RESULTADOS</h1>
+
+    <div class="datos" id="datos"></div>
+
+    <div class="resultado">
+      <div class="tema">📘 Lectura</div>
+      <div class="barra"><div id="lecturaBarra" class="progreso"></div></div>
+      <div class="nivel" id="lecturaNivel"></div>
+    </div>
+
+    <div class="resultado">
+      <div class="tema">🧮 Matemáticas</div>
+      <div class="barra"><div id="mateBarra" class="progreso"></div></div>
+      <div class="nivel" id="mateNivel"></div>
+    </div>
+
+    <button onclick="volver()">🔁 Repetir Test</button>
+    <button onclick="IniciarAventura()">🌟 Iniciar Aventura</button>
+  </div>
+
+  <script src="../js/resultados.js"></script>
+</body>
+</html>

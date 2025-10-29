@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="verificación" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Humano</title>
+    <link rel="stylesheet" href="../css/verificacion.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Verificación</h2>
+    
+    <div id="code-step">
+        <p>Para continuar, escribe el código que ves a continuación:</p>
+        
+        <div id="codigo-mostrado"></div>
+        
+        <input type="text" id="codigo" placeholder="Escribe el código" maxlength="6" required>
+        <br>
+        <button onclick="verificarCodigo()">Verificar</button>
+    </div>
+
+    <p id="mensaje"></p>
+</div>
+
+<script src="../js/verificacion.js"></script>
+
+</body>
+</html>

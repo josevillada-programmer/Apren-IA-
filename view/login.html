@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión — brainrot</title>
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="container">
+    <div class="glitch" data-text="LOGIN BRAINROT">LOGIN BRAINROT</div>
+    <h2>Inicia sesión</h2>
+
+    <input type="email" id="email" placeholder="Correo electrónico" required><br>
+    <input type="password" id="password" placeholder="Contraseña" required><br>
+
+    <button onclick="login()">Entrar</button>
+
+    <div class="social-buttons">
+      <button onclick="socialLogin('Google')">Google</button>
+      <button onclick="socialLogin('Facebook')">Facebook</button>
+    </div>
+
+    <a href="register.html">¿No tienes cuenta? Regístrate aquí</a>
+  </div>
+
+  <script src="../js/login.js"></script>
+</body>
+</html>

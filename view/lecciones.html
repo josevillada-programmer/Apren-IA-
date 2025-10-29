@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mapa de Aventura — 10 niveles 1° grado diferente</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Passion+One:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/lecciones.css">
+</head>
+<body>
+<div class="particles" id="particles"></div>
+
+<div class="app">
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">BR</div>
+      <div class="title">
+        <h1>Brainrot — Mapa de Aventura</h1>
+        <small>Cada 10 niveles cambia de grado • Haz clic en un nodo para abrir su prueba</small>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="progress-wrap" aria-hidden="true">
+        <div style="font-size:12px;opacity:0.85">Progreso</div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+      <button class="control-btn" id="btnLeft" title="Izquierda">←</button>
+      <button class="control-btn" id="btnRight" title="Derecha">→</button>
+      <button class="control-btn" id="btnCenter" title="Centrar">•</button>
+    </div>
+  </header>
+
+  <main class="map-stage" role="main" aria-label="Mapa de aventura">
+    <div class="map-viewport" id="viewport">
+      <div class="map-plane" id="plane">
+        <svg class="map-path" id="mapPathSvg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <filter id="glow"><feGaussianBlur stdDeviation="10" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <path id="mapPath" d="" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"></path>
+        </svg>
+        <!-- (Posible) JS -->
+      </div>
+    </div>
+
+    <div class="legend" id="legend">
+      <div style="font-weight:700;margin-bottom:6px">Grupos (cada 10 niveles)</div>
+      <div class="group"><div class="swatch" style="background:linear-gradient(135deg,#ffd7ea,#ff9ad5)"></div><div>1–10 • Sweet Pastel</div></div>
+      <div class="group"><div class="swatch" style="background:linear-gradient(135deg,#70f7ff,#00a6ff)"></div><div>11–20 • Neon Ocean</div></div>
+      <div class="group"><div class="swatch" style="background:linear-gradient(135deg,#fff07a,#ff7a00)"></div><div>21–30 • Solar Citrus</div></div>
+      <div class="group"><div class="swatch" style="background:linear-gradient(135deg,#ff6bd6,#6b00ff)"></div><div>31–40 • Cosmic Magenta</div></div>
+      <div class="group"><div class="swatch" style="background:linear-gradient(135deg,#7effc3,#007a66)"></div><div>41–50 • Emerald Night</div></div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/lecciones.js"></script>
+</body>
+</html>
