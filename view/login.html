@@ -1,32 +1,314 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión — brainrot</title>
-  <link rel="stylesheet" href="../css/login.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aprend-IA — Inicio / Registro</title>
+  <meta name="description" content="Formulario gamificado accesible para niños de primaria. Diseño basado en neuroventas y Gestalt." />
+  <style>
+    :root{
+      --bg: #f6fbff; --card: #ffffff; --accent-1: #4aa3ff; --accent-2: #66d9b8; --accent-3: #ffd36b; --muted: #7b8a9a; --text: #102a43; --success: #2f9e6b; --danger: #e94f37; --glass: rgba(255,255,255,0.6); --radius-lg: 18px; --radius-sm: 10px; --shadow-1: 0 6px 18px rgba(16,42,67,0.08); --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--font-sans); background: linear-gradient(180deg,var(--bg), #eef9f6 90%); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+    .wrap{
+      width:100%;max-width:980px;display:grid;grid-template-columns:420px 1fr;gap:28px;align-items:center;
+    }
+    .hero{
+      background: linear-gradient(135deg,var(--accent-1),var(--accent-2)); border-radius:var(--radius-lg); padding:20px;position:relative;overflow:hidden;color:white;box-shadow:var(--shadow-1); min-height:360px;display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .hero .mascot{
+      width:140px;height:140px;border-radius:50%;background:linear-gradient(180deg,#ffffff22,#ffffff11);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:48px;color:rgba(255,255,255,0.95); box-shadow: 0 8px 22px rgba(10,30,60,0.12); margin-bottom:8px; transform-origin:center;
+    }
+    .hero h1{font-size:28px;margin:8px 0}
+    .hero p{margin:0;color:rgba(255,255,255,0.9)}
+    .hero .stars{position:absolute;right:-30px;top:-10px;opacity:0.25;font-size:86px;transform:rotate(12deg)}
+    .card{
+      background:var(--card);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-1);min-height:360px;display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .switch-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .switch {
+      --w:62px;--h:34px;position:relative;width:var(--w);height:var(--h);border-radius:999px;background:linear-gradient(180deg,#e9f6ff,#d7f0ff);display:inline-flex;align-items:center;padding:4px;cursor:pointer;transition:all .28s ease;box-shadow:inset 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .switch .knob{width:26px;height:26px;background:white;border-radius:50%;box-shadow:0 6px 14px rgba(16,42,67,0.12);transition:transform .28s cubic-bezier(.2,.9,.3,1)}
+    .switch[data-state="register"]{background:linear-gradient(180deg,#eafff5,#dcfff0)}
+    .switch[data-state="register"] .knob{transform:translateX(28px)}
+    .titles{display:flex;gap:12px;align-items:center}
+    .titles h2{font-size:18px;margin:0}
+    .titles small{color:var(--muted)}
+    form{display:grid;gap:12px}
+    label{font-size:13px;color:var(--muted);display:block}
+    input[type="text"],input[type="email"],input[type="password"],select{
+      width:100%;padding:12px;border-radius:var(--radius-sm);border:1px solid #e6eef6;background:linear-gradient(180deg,#ffffff,#fbfdff);font-size:15px;color:var(--text); outline:none;box-shadow:none;transition:box-shadow .15s,transform .12s;
+    }
+    input:focus{box-shadow:0 6px 18px rgba(74,163,255,0.12);border-color:var(--accent-1);transform:translateY(-1px)}
+    .row{display:flex;gap:12px}
+    .row .col{flex:1}
+    .hint{font-size:12px;color:var(--muted)}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;font-weight:600;cursor:pointer;font-size:15px;box-shadow:0 10px 28px rgba(74,163,255,0.12); transition:transform .12s,box-shadow .12s,opacity .12s;
+    }
+    .btn:active{transform:translateY(2px)}
+    .btn[aria-disabled="true"]{opacity:.6;cursor:not-allowed}
+    .message{font-size:14px;padding:10px;border-radius:10px}
+    .message.success{background:linear-gradient(180deg,#eaffef,#dff7ee);color:var(--success)}
+    .message.error{background:linear-gradient(180deg,#fff0ef,#ffecec);color:var(--danger)}
+    .muted{color:var(--muted);font-size:13px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (max-width:880px){
+      .wrap{grid-template-columns:1fr;}
+      .hero{order:2}
+    }
+    .progress-wrap{display:flex;align-items:center;gap:12px}
+    .level{background:var(--glass);padding:8px;border-radius:12px;min-width:64px;text-align:center}
+    .progress{flex:1;height:12px;border-radius:8px;background:#eef6fb;overflow:hidden}
+    .progress > i{display:block;height:100%;width:40%;border-radius:8px;background:linear-gradient(90deg,var(--accent-3),var(--accent-2));transform-origin:left;transition:width .8s cubic-bezier(.2,.9,.3,1)}
+    #confetti-canvas{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+    :focus{outline:3px solid rgba(102,217,184,0.24);outline-offset:3px}
+  </style>
 </head>
 <body>
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
+  <div class="wrap" role="main">
+    <section class="hero" aria-hidden="false">
+      <div>
+        <div class="mascot" id="mascot" aria-hidden="true">A</div>
+        <h1>Aprend-IA</h1>
+        <p>Matemáticas y Lengua para primaria — aprende jugando, supera retos y gana medallas.</p>
+      </div>
+      <div aria-hidden="true">
+        <div class="stars">✦</div>
+        <div class="progress-wrap" style="margin-top:12px;">
+          <div class="level">
+            <div style="font-weight:700">Nivel 1</div>
+            <div class="muted">Principiante</div>
+          </div>
+          <div class="progress" aria-hidden="true">
+            <i id="progress-bar" style="width:40%"></i>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="container">
-    <div class="glitch" data-text="LOGIN BRAINROT">LOGIN BRAINROT</div>
-    <h2>Inicia sesión</h2>
-
-    <input type="email" id="email" placeholder="Correo electrónico" required><br>
-    <input type="password" id="password" placeholder="Contraseña" required><br>
-
-    <button onclick="login()">Entrar</button>
-
-    <div class="social-buttons">
-      <button onclick="socialLogin('Google')">Google</button>
-      <button onclick="socialLogin('Facebook')">Facebook</button>
-    </div>
-
-    <a href="register.html">¿No tienes cuenta? Regístrate aquí</a>
-  </div>
-
-  <script src="../js/login.js"></script>
-</body>
-</html>
+    <section class="card" aria-labelledby="form-title">
+      <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+      <div>
+        <div class="switch-row">
+          <div class="titles" aria-hidden="false">
+            <h2 id="form-title">Iniciar sesión</h2>
+            <small id="form-sub">Bienvenido de nuevo — ¡vamos a aprender!</small>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="muted">Iniciar</div>
+            <button class="switch" id="mode-switch" aria-pressed="false" data-state="login" aria-label="Cambiar a registrarse">
+              <div class="knob" aria-hidden="true"></div>
+            </button>
+            <div class="muted">Registrar</div>
+          </div>
+        </div>
+        <div id="live" class="sr-only" aria-live="polite"></div>
+        <form id="login-form" autocomplete="on" novalidate>
+          <div>
+            <label for="login-email">Correo del tutor o nick</label>
+            <input id="login-email" name="login-email" type="text" placeholder="ej. mamá_julia o correo@ejemplo.com" required aria-required="true" />
+          </div>
+          <div>
+            <label for="login-password">Contraseña</label>
+            <input id="login-password" name="login-password" type="password" placeholder="••••••" required aria-required="true" minlength="6" />
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+            <label style="display:flex;align-items:center;gap:8px;" class="muted"><input type="checkbox" id="remember" /> Recuérdame</label>
+            <a href="#" class="muted" style="text-decoration:none;font-size:13px;">¿Olvidaste?</a>
+          </div>
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+            <button class="btn" type="submit">Entrar ✨</button>
+            <div class="muted">o usa tu avatar</div>
+          </div>
+        </form>
+        <form id="register-form" autocomplete="on" novalidate style="display:none;margin-top:6px;">
+          <div class="row">
+            <div class="col">
+              <label for="reg-name">Nombre del niño</label>
+              <input id="reg-name" name="reg-name" type="text" placeholder="Ej. Mateo" required aria-required="true" />
+            </div>
+            <div class="col">
+                            <label for="reg-nick">Apodo</label>
+                            <input id="reg-nick" name="reg-nick" type="text" placeholder="Crea un apodo divertido" required aria-required="true" />
+                          </div>
+                        </div>
+                        <div>
+                          <label for="reg-age">Edad</label>
+                          <select id="reg-age" name="reg-age" required aria-required="true">
+                            <option value="">Selecciona edad</option>
+                            <option value="6">6</option> <option value="7">7</option> <option value="8">8</option> <option value="9">9</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label for="reg-parent">Correo del tutor</label>
+                          <input id="reg-parent" name="reg-parent" type="email" placeholder="correo@ejemplo.com" required aria-required="true" />
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <label for="reg-pass">Crear contraseña</label>
+                            <input id="reg-pass" name="reg-pass" type="password" minlength="6" placeholder="Mínimo 6 caracteres" required aria-required="true" />
+                          </div>
+                          <div class="col">
+                            <label for="reg-pass2">Confirmar</label>
+                            <input id="reg-pass2" name="reg-pass2" type="password" minlength="6" placeholder="Repite la contraseña" required aria-required="true" />
+                          </div>
+                        </div>
+                        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+                          <button class="btn" type="submit">Crear cuenta 🎉</button>
+                          <div class="muted">Al registrarte ganarás 50 monedas</div>
+                        </div>
+                      </form>
+                    </div>
+                    <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center">
+                      <div class="muted">¿Necesitas ayuda? <a href="#" style="text-decoration:none;color:var(--accent-1);font-weight:600;">Soporte</a></div>
+                      <div style="font-size:13px;color:var(--muted);">© Aprend-IA</div>
+                    </div>
+                  </section>
+                </div>
+              
+                <script>
+                  const modeSwitch = document.getElementById('mode-switch');
+                  const loginForm = document.getElementById('login-form');
+                  const registerForm = document.getElementById('register-form');
+                  const title = document.getElementById('form-title');
+                  const subtitle = document.getElementById('form-sub');
+                  const live = document.getElementById('live');
+                  const mascot = document.getElementById('mascot');
+                  const progressBar = document.getElementById('progress-bar');
+                  const confettiCanvas = document.getElementById('confetti-canvas');
+                  const ctx = confettiCanvas.getContext && confettiCanvas.getContext('2d');
+                  let confettiParticles = [];
+              
+                  function resizeCanvas(){ confettiCanvas.width = confettiCanvas.offsetWidth; confettiCanvas.height = confettiCanvas.offsetHeight; }
+                  window.addEventListener('resize', resizeCanvas);
+                  resizeCanvas();
+              
+                  modeSwitch.addEventListener('click', () => {
+                    const isRegister = modeSwitch.getAttribute('data-state') === 'register';
+                    if (isRegister) {
+                      modeSwitch.setAttribute('data-state','login'); modeSwitch.setAttribute('aria-pressed','false'); modeSwitch.setAttribute('aria-label','Cambiar a registrarse');
+                      title.textContent = 'Iniciar sesión'; subtitle.textContent = 'Bienvenido de nuevo — ¡vamos a aprender!';
+                      registerForm.style.display = 'none'; loginForm.style.display = 'grid';
+                      live.textContent = 'Modo: iniciar sesión'; animateMascot('hello');
+                    } else {
+                      modeSwitch.setAttribute('data-state','register'); modeSwitch.setAttribute('aria-pressed','true'); modeSwitch.setAttribute('aria-label','Cambiar a iniciar sesión');
+                      title.textContent = 'Crear cuenta'; subtitle.textContent = 'Empieza la aventura — gana monedas y medallas';
+                      registerForm.style.display = 'grid'; loginForm.style.display = 'none';
+                      live.textContent = 'Modo: registrarse'; animateMascot('celebrate');
+                    }
+                  });
+              
+                  function animateMascot(type){
+                    mascot.animate([ { transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.06) rotate(6deg)' }, { transform: 'scale(1) rotate(-2deg)' } ], { duration: 700, easing: 'cubic-bezier(.2,.9,.3,1)' });
+                    if(type === 'celebrate'){ mascot.animate([ { background: 'linear-gradient(180deg,#ffffff22,#ffffff11)' }, { background: 'linear-gradient(180deg,#ffffff66,#ffffff33)' }, { background: 'linear-gradient(180deg,#ffffff22,#ffffff11)' } ], { duration: 1000 }); }
+                  }
+              
+                  function showMessage(form, type, text){
+                    const div = document.createElement('div');
+                    div.className = 'message ' + (type==='success'?'success':'error');
+                    div.textContent = text;
+                    div.setAttribute('role','status');
+                    div.style.marginTop = '10px';
+                    const old = form.querySelector('.message');
+                    if(old) old.remove();
+                    form.appendChild(div);
+                    live.textContent = text;
+                    if(type==='success'){ launchConfetti(); }
+                  }
+              
+                  loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('login-email').value.trim();
+                    const password = document.getElementById('login-password').value;
+                    if(!email || password.length < 6){
+                      showMessage(loginForm, 'error','Revisa tu usuario y contraseña (mín. 6 caracteres).');
+                      return;
+                    }
+                    try {
+                      const response = await fetch('http://localhost:5000/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                      });
+                      const data = await response.json();
+                      if (response.ok) {
+                        showMessage(loginForm, 'success','¡Bienvenido de vuelta! Redirigiendo...');
+                        localStorage.setItem('token', data.token);
+                        setTimeout(() => { window.location.href = '../index.html'; }, 1500);
+                      } else {
+                        showMessage(loginForm, 'error', data.msg || 'Error al iniciar sesión.');
+                      }
+                    } catch (error) {
+                      showMessage(loginForm, 'error', 'No se pudo conectar con el servidor.');
+                    }
+                  });
+              
+                  registerForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const first_name = document.getElementById('reg-name').value.trim();
+                    const nickname = document.getElementById('reg-nick').value.trim();
+                    const age = document.getElementById('reg-age').value;
+                    const email = document.getElementById('reg-parent').value.trim();
+                    const password = document.getElementById('reg-pass').value;
+                    const confirmPassword = document.getElementById('reg-pass2').value;
+              
+                    if(!first_name || !nickname || !age || !email || password.length < 6 || password !== confirmPassword){
+                      showMessage(registerForm, 'error','Revisa los campos: nombres, edad y que las contraseñas coincidan (mín. 6).');
+                      return;
+                    }
+                    try {
+                      const response = await fetch('http://localhost:5000/api/auth/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ first_name, last_name: nickname, nickname, email, password, age })
+                      });
+                      const data = await response.json();
+                      if (response.ok) {
+                        showMessage(registerForm, 'success', `¡Cuenta creada, ${first_name}! Ahora inicia sesión.`);
+                        setTimeout(() => {
+                          modeSwitch.click();
+                          document.getElementById('login-email').value = email;
+                        }, 2000);
+                      } else {
+                        showMessage(registerForm, 'error', data.msg || 'Error al registrar la cuenta.');
+                      }
+                    } catch (error) {
+                      showMessage(registerForm, 'error', 'No se pudo conectar con el servidor.');
+                    }
+                  });
+              
+                  function random(min,max){return Math.random()*(max-min)+min}
+                  function createParticle(x,y){
+                    const colors = ['#ffd36b','#ff9aa2','#4aa3ff','#66d9b8','#c6baff'];
+                    return { x:x, y:y, vx: random(-6,6), vy: random(-12,-4), size: random(6,14), angle: random(0,360), color: colors[Math.floor(Math.random()*colors.length)], life: random(60,110) }
+                  }
+                  function launchConfetti(){
+                    const rect = confettiCanvas.getBoundingClientRect();
+                    for(let i=0;i<40;i++){ confettiParticles.push(createParticle(rect.width/2, rect.height/3)); }
+                    if(!confettiLoopRunning){ confettiLoopRunning = true; requestAnimationFrame(confettiLoop); }
+                  }
+                  let confettiLoopRunning = false;
+                  function confettiLoop(){
+                    if(!ctx) return;
+                    ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+                    for(let i=confettiParticles.length-1;i>=0;i--){
+                      const p = confettiParticles[i];
+                      p.vy += 0.4; p.x += p.vx; p.y += p.vy; p.angle += 6; p.life -= 1;
+                      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.angle * Math.PI/180); ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6); ctx.restore();
+                      if(p.life <= 0 || p.y > confettiCanvas.height + 40) confettiParticles.splice(i,1);
+                    }
+                    if(confettiParticles.length>0) requestAnimationFrame(confettiLoop);
+                    else confettiLoopRunning = false;
+                  }
+                  window.addEventListener('load', ()=>{ mascot.animate([{transform:'translateY(10px)'},{transform:'translateY(0)'}],{duration:700,easing:'cubic-bezier(.2,.9,.3,1)'}); });
+                  modeSwitch.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); modeSwitch.click(); } });
+                  setTimeout(resizeCanvas, 300);
+                </script>
+              </body>
+              </html>

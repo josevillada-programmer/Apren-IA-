@@ -19,7 +19,8 @@ async function login() {
     const data = await response.json();
 
     if (response.ok) {
-      window.location.href = `verificacion.html?token=${data.token}`;
+      localStorage.setItem('token', data.token);
+      window.location.href = '../index.html';
     } else {
       alert(data.msg || 'Error al iniciar sesión');
     }

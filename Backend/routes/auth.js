@@ -5,17 +5,22 @@ const jwt = require('jsonwebtoken');
 const db = require('../database');
 
 router.post('/register', (req, res) => {
-    const { email, password, first_name, last_name, age, grade } = req.body;
+    const { email, password, first_name, last_name, nickname, age, grade } = req.body;
 
-    if (!email || !password || !first_name || !last_name) {
+    if (!email || !password || !first_name || !last_name || !nickname) {
         return res.status(400).json({ msg: 'Please enter all required fields' });
     }
 
-    db.query('SELECT email FROM users WHERE email = ?', [email], (error, userResults) => {
+    db.query('SELECT email, nickname FROM users WHERE email = ? OR nickname = ?', [email, nickname], (error, userResults) => {
         if (error) throw error;
 
         if (userResults.length > 0) {
-            return res.status(400).json({ msg: 'User already exists' });
+            if (userResults[0].email === email) {
+                return res.status(400).json({ msg: 'User with that email already exists' });
+            }
+            if (userResults[0].nickname === nickname) {
+                return res.status(400).json({ msg: 'That nickname is already taken' });
+            }
         }
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -28,6 +33,7 @@ router.post('/register', (req, res) => {
                     password_hash: hash,
                     first_name,
                     last_name,
+                    nickname,
                     role: 'student', // Default role
                     age,
                     grade,

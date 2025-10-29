@@ -1,95 +1,264 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Usuario - Aprend//IA//</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/dark-theme.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../css/dropdown.css">
+    <title>Perfil de Usuario - Aprend-IA</title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
-        .avatar-container {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        :root {
+            --azul: #4AA3FF;
+            --verde: #66D9B8;
+            --amarillo: #FFD36B;
+            --fondo: #F6FBFF;
+            --texto: #102A43;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            padding-top: 80px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: linear-gradient(90deg, var(--azul), var(--verde));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 800;
+        }
+
+        .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.05);
+            color: var(--amarillo) !important;
+        }
+
+        .avatar-nav {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        .avatar-nav:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== PERFIL ===== */
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .profile-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-avatar img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 5px solid var(--azul);
+            object-fit: cover;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card h1 {
+            font-weight: 800;
+            font-size: 1.6rem;
+            margin-bottom: .5rem;
+        }
+
+        .profile-card p {
+            margin: 0.3rem 0;
+            color: #555;
+        }
+
+        /* Botones */
+        .btn-edit {
+            background-color: var(--azul);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            background-color: var(--verde);
+            transform: scale(1.05);
+        }
+
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            color: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .points {
+            background-color: #FF5733;
+        }
+
+        .accuracy {
+            background-color: #337AFF;
+        }
+
+        .lessons {
+            background-color: #33FF57;
+        }
+
+        /* ===== ITEMS ===== */
+        .slots-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 1rem;
+        }
+
+        .slot {
+            background-color: #dceaff;
+            border-radius: 10px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7a7a7a;
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .slot:hover {
+            background-color: var(--verde);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* ===== ACTIVIDAD ===== */
+        .profile-recent-activity li {
+            list-style: none;
+            border-bottom: 1px solid #eee;
+            padding: .75rem 0;
+            font-weight: 500;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card {
+                margin-bottom: 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <header class="main-header">
-        <img src="#" alt="Aprend//IA//" class="logo">
-        
-        <div class="header-right">
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="../index.html#matematicas">MATEMÁTICAS</a></li>
-                    <li><a href="../index.html#lectura">LECTURA</a></li>
-                    <li><a href="../index.html#ortografia">ORTOGRAFÍA</a></li>
-                    <li><a href="../index.html#progreso">MI PROGRESO</a></li>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Aprend-IA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="#items" class="nav-link">Mis Items</a></li>
+                    <li class="nav-item"><a href="#actividad" class="nav-link">Actividad</a></li>
+                    <li class="nav-item ms-3">
+                        <a href="profile.html">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png" class="avatar-nav"
+                                alt="Avatar usuario">
+                        </a>
+                    </li>
                 </ul>
-            </nav>
-            <form class="search-form">
-                <input type="search" placeholder="Buscar tema...">
-                <button type="submit">🔍</button>
-            </form>
-
-            <!-- User session dropdown -->
-            <div id="user-session" class="user-menu" style="display: none;">
-                <div id="user-menu-trigger" class="user-menu-trigger">
-                    <div class="avatar-container">
-                        <img id="user-avatar" src="../img/12225881-removebg-preview.png" alt="Avatar" class="avatar">
-                    </div>
-                </div>
-                <div id="user-menu-dropdown" class="dropdown-menu">
-                    <div class="user-info">
-                        <span id="dropdown-user-name"></span>
-                        <div id="streak-container" style="display: none;">
-                            <i class="fas fa-book" style="font-size: 20px; margin-right: 5px;"></i>
-                            <span id="streak-days"></span>
-                        </div>
-                    </div>
-                    <a href="profile.html"><i class="fas fa-user"></i>Mi Perfil</a>
-                    <a href="#settings"><i class="fas fa-cog"></i>Ajustes</a>
-                    <a href="#theme"><i class="fas fa-palette"></i>Tema</a>
-                    <div class="divider"></div>
-                    <a href="#" id="logout-btn" class="logout-link"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
-                </div>
             </div>
-
-            <button id="login-btn" class="btn-login" onclick="window.location.href='login.html'">Iniciar Sesión</button>
-            <button id="hamburger-btn" class="hamburger-menu">&#9776;</button>
         </div>
-    </header>
+    </nav>
 
-    <div id="mobile-sidebar" class="sidebar">
-        <a href="javascript:void(0)" class="close-btn">&times;</a>
-        <a href="../index.html#matematicas">MATEMÁTICAS</a>
-        <a href="../index.html#lectura">LECTURA</a>
-        <a href="../index.html#ortografia">ORTOGRAFÍA</a>
-        <a href="../index.html#progreso">MI PROGRESO</a>
-    </div>
-
+    <!-- PERFIL -->
     <main class="profile-container">
-        <div class="profile-grid">
-            <div class="profile-left">
-                <div class="card profile-card">
+        <div class="row g-4">
+            <!-- LADO IZQUIERDO -->
+            <div class="col-lg-4">
+                <div class="profile-card">
                     <div class="profile-avatar">
-                        <img src="../img/12225881-removebg-preview.png" alt="Avatar de Usuario">
+                        <img src="../img/12225881-removebg-preview.png" alt="Avatar de usuario">
                     </div>
                     <h1 id="profile-name">Nombre de Usuario</h1>
                     <p id="profile-email">correo@ejemplo.com</p>
                     <p id="profile-age">Edad: -</p>
                     <p id="profile-grade">Grado: -</p>
                     <p id="profile-role">Rol: -</p>
-                    <div class="profile-card-buttons">
-                        <button id="edit-profile-btn" class="btn-edit">Editar Perfil</button>
-                        <button id="save-profile-btn" class="btn-save" style="display: none;">Guardar</button>
-                        <button id="cancel-edit-btn" class="btn-cancel" style="display: none;">Cancelar</button>
+
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        <button id="edit-profile-btn" class="btn btn-edit">Editar</button>
+                        <button id="save-profile-btn" class="btn btn-save d-none">Guardar</button>
+                        <button id="cancel-edit-btn" class="btn btn-cancel d-none">Cancelar</button>
                     </div>
                 </div>
-                <div class="card item-slots">
-                    <h2>Mis Items</h2>
+
+                <div class="profile-card" id="items">
+                    <h2 class="fw-bold mb-3">🎁 Mis Items</h2>
                     <div class="slots-container">
                         <div class="slot"><i class="fas fa-question"></i></div>
                         <div class="slot"><i class="fas fa-question"></i></div>
@@ -98,38 +267,42 @@
                     </div>
                 </div>
             </div>
-            <div class="profile-right">
-                <div class="stats-grid">
-                    <div class="card stat-card points">
+
+            <!-- LADO DERECHO -->
+            <div class="col-lg-8">
+                <div class="stats-grid mb-4">
+                    <div class="stat-card points">
                         <h2>0</h2>
                         <p>Puntos</p>
                     </div>
-                    <div class="card stat-card accuracy">
+                    <div class="stat-card accuracy">
                         <h2>0%</h2>
                         <p>Precisión</p>
                     </div>
-                    <div class="card stat-card lessons">
+                    <div class="stat-card lessons">
                         <h2>0</h2>
                         <p>Lecciones</p>
                     </div>
                 </div>
-                <div class="card recent-activity-card">
-                    <h2>Actividad Reciente</h2>
-                    <ul class="profile-recent-activity">
-                        <!-- Activity items will be populated by JS -->
+
+                <div class="profile-card" id="actividad">
+                    <h2 class="fw-bold">🧩 Actividad Reciente</h2>
+                    <ul class="profile-recent-activity mt-3">
+                        <li>Completó la lección de fracciones.</li>
+                        <li>Obtuvo 90% en comprensión lectora.</li>
+                        <li>Subió al nivel 2.</li>
                     </ul>
                 </div>
-                <div class="card last-connection-card">
-                    <h2>Última Conexión</h2>
-                    <p id="last-login-info">-</p>
+
+                <div class="profile-card">
+                    <h2 class="fw-bold">⏰ Última Conexión</h2>
+                    <p id="last-login-info" class="mt-2">Hace 2 horas</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="../js/dropdown.js"></script>
-    <script src="../js/sidebar.js"></script>
-    <script src="../js/profile-logic.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
