@@ -28,18 +28,14 @@
   button{font-family:inherit}
 
 
-  body::before{
-    content:"";
-    position:fixed;inset:0;z-index:0;
-    background:
-      radial-gradient(800px 400px at 10% 20%, rgba(155,92,255,0.12), transparent 6%),
-      radial-gradient(700px 350px at 85% 80%, rgba(0,229,255,0.08), transparent 8%),
-      linear-gradient(120deg, #120019, #3b0038 30%, #0a183a 70%, #001825);
-    filter:contrast(1.05) saturate(1.15);
-    transform-origin:center;
-    animation: bgShift 18s linear infinite alternate;
-    will-change:transform,filter;
-  }
+ body {
+  background-image: url("Imagen de WhatsApp 2025-10-29 a las 14.23.04_b66eb026.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
   @keyframes bgShift{
     0%{transform:scale(1) rotate(0deg)}
     100%{transform:scale(1.02) rotate(.6deg)}
