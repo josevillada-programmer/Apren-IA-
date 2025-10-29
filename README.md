@@ -64,6 +64,10 @@ Su objetivo es ayudar especialmente a aquellos con **problemas de aprendizaje**,
 
 ---
 
+## 🎁 Recompensas
+
+Resolver ejercicios recompensa al usuario con objetos coleccionables que puede ver en su perfil.
+
 ## ⚙️ Instalación y ejecución
 
 ### 1️⃣ Clonar el repositorio
@@ -137,7 +141,7 @@ Los avances siguientes luego de la primera versión:
 Este proyecto se distribuye bajo la licencia MIT.
 Puedes usar, modificar y compartir libremente citando la fuente.
 
-### Actualizaciones
+### 📈 Actualizaciones
 
 * Creación del modelo de base de datos.
 * Avance en la documento de desarrollo.
@@ -145,7 +149,7 @@ Puedes usar, modificar y compartir libremente citando la fuente.
 * Conexión a Backend de interfaces básicas.
 * Logos actualizados.
 
-### Proximamente
+### 🔜 Proximamente
 
 * Diseño finalizado.
 * Implementación de API's de Inteligencia Artificial.
@@ -159,4 +163,3 @@ Puedes usar, modificar y compartir libremente citando la fuente.
   <img src="https://img.shields.io/badge/Educación%20para-todos-yellow"/>
   <img src="https://img.shields.io/badge/Hecho%20en-México-green"/>
 </p>
-
