@@ -1,0 +1,19 @@
+{
+    "formulas": [
+        {
+            "tex": "\\LaTeX",
+            "options": {
+                "displayMode": true,
+                "style": {
+                    "fontSize": "24px"
+                }
+            }
+        }
+    ],
+    "rules": {
+        "globalStyles": {
+            "fontSize": "22px",
+            "color": "#333"
+        }
+    }
+}

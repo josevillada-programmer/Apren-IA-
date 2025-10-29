@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LaTeX Renderer - Demo</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha256-..."
+        crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            padding: 24px;
+            line-height: 1.4;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .card {
+            padding: 16px;
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .render-area {
+            min-height: 120px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .small {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .error {
+            color: #b00020;
+            font-weight: 600;
+        }
+
+        .formula-block {
+            margin-bottom: 12px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>LaTeX Renderer — Demo</h1>
+    <p class="small">Escribe LaTeX en el textarea o carga un archivo (.txt con una fórmula o .json con múltiples
+        fórmulas). La IA puede enviar las fórmulas como parámetros a la clase.</p>
+
+    <div class="grid">
+        <!-- Left: Input -->
+        <div class="card">
+            <h3>Entrada manual</h3>
+            <textarea id="latexInput" placeholder="Escribe aquí LaTeX, por ejemplo: c = \sqrt{a^2 + b^2}"></textarea>
+            <div class="controls">
+                <button id="renderBtn">Renderizar</button>
+                <button id="clearBtn">Limpiar</button>
+            </div>
+
+            <hr>
+
+            <h3>Cargar desde archivo</h3>
+            <input type="file" id="fileInput" accept=".txt,.json" />
+            <div class="controls">
+                <button id="loadFileBtn">Cargar y renderizar</button>
+            </div>
+
+            <hr>
+
+            <h3>Ejemplo: pasar fórmulas por parámetro (simulación IA)</h3>
+            <button id="simulateAiBtn">Simular envío IA</button>
+            <div class="small">Ejemplo: la IA envía un array de objetos { tex, options }</div>
+        </div>
+
+        <!-- Right: Render -->
+        <div class="card">
+            <h3>Render</h3>
+            <div id="renderContainer" class="render-area"></div>
+            <div id="status" class="small"></div>
+            <div id="errorBox" class="error"></div>
+        </div>
+    </div>
+
+    <!-- KaTeX JS -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha256-..."
+        crossorigin="anonymous"></script>
+    <!-- Optionally include auto-render if you want to parse a block of text automatically:
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  -->
+
+    <script>
+        /**
+         * LaTeXRenderer - clase para renderizar fórmulas LaTeX con KaTeX.
+         *
+         * Opciones en constructor (all optional):
+         * {
+         *   container: HTMLElement | selector (default '#renderContainer'),
+         *   defaultOptions: { displayMode: true|false, macros: {...}, trust: false },
+         *   globalStyles: { fontSize: '20px', color: '#111' } // aplicadas a cada bloque
+         * }
+         *
+         * Métodos principales:
+         * - renderString(latexString, options) => renderiza una única fórmula
+         * - renderArray([{tex, options}, ...]) => renderiza varias
+         * - renderFromURL(url) => obtiene .txt o .json y renderiza
+         * - clear() => limpia contenedor
+         */
+        class LaTeXRenderer {
+            constructor(opts = {}) {
+                this.container = typeof opts.container === 'string' ? document.querySelector(opts.container) : (opts.container || document.getElementById('renderContainer'));
+                if (!this.container) throw new Error('Container not found for LaTeXRenderer');
+
+                this.defaultOptions = opts.defaultOptions || { displayMode: true, macros: {}, throwOnError: false };
+                this.globalStyles = opts.globalStyles || { fontSize: '20px', color: '#111' };
+                this._setStatus('ready');
+            }
+
+            _setStatus(msg) {
+                const st = document.getElementById('status');
+                if (st) st.textContent = msg;
+            }
+
+            _setError(msg) {
+                const eb = document.getElementById('errorBox');
+                if (eb) eb.textContent = msg || '';
+                console.error(msg);
+            }
+
+            clear() {
+                this.container.innerHTML = '';
+                this._setStatus('cleared');
+                this._setError('');
+            }
+
+            // render a single formula string (or element)
+            renderString(latexString, options = {}) {
+                const opts = Object.assign({}, this.defaultOptions, options);
+                const wrapper = document.createElement('div');
+                wrapper.className = 'formula-block';
+                // apply global styles and per-option fontSize/color
+                if (this.globalStyles) {
+                    wrapper.style.fontSize = this.globalStyles.fontSize || '';
+                    wrapper.style.color = this.globalStyles.color || '';
+                }
+                if (options && options.style) {
+                    if (options.style.fontSize) wrapper.style.fontSize = options.style.fontSize;
+                    if (options.style.color) wrapper.style.color = options.style.color;
+                }
+
+                // Render with KaTeX
+                try {
+                    katex.render(latexString, wrapper, opts);
+                    this.container.appendChild(wrapper);
+                    this._setStatus('rendered');
+                } catch (err) {
+                    // If throwOnError true, rethrow; else display error block inline
+                    if (opts.throwOnError) throw err;
+                    const errDiv = document.createElement('div');
+                    errDiv.className = 'error';
+                    errDiv.textContent = 'Error al renderizar: ' + err.message;
+                    wrapper.appendChild(errDiv);
+                    this.container.appendChild(wrapper);
+                    this._setError(err.message);
+                }
+            }
+
+            // render an array of { tex, options }
+            renderArray(items = []) {
+                this.clear();
+                if (!Array.isArray(items)) {
+                    this._setError('renderArray espera un array');
+                    return;
+                }
+                items.forEach(item => {
+                    if (typeof item === 'string') {
+                        this.renderString(item, {});
+                    } else if (item && item.tex) {
+                        this.renderString(item.tex, item.options || {});
+                    }
+                });
+            }
+
+            // fetch a URL; if JSON -> expects { formulas: [{tex, options}, ...], rules: {...} }
+            // if text -> treat entire body as a single latex string
+            async renderFromURL(url) {
+                this._setStatus('fetching ' + url);
+                this.clear();
+                try {
+                    const res = await fetch(url, { cache: 'no-store' });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+
+                    const ct = res.headers.get('content-type') || '';
+                    if (ct.includes('application/json') || url.match(/\.json$/i)) {
+                        const data = await res.json();
+                        const formulas = data.formulas || [];
+                        // apply possible global rules
+                        if (data.rules && data.rules.globalStyles) {
+                            this.globalStyles = Object.assign({}, this.globalStyles, data.rules.globalStyles);
+                        }
+                        this.renderArray(formulas);
+                        this._setStatus('rendered JSON from ' + url);
+                    } else {
+                        // treat as plain text
+                        const text = await res.text();
+                        // split by double newlines into multiple formulas (heuristic)
+                        const parts = text.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+                        const items = parts.map(p => ({ tex: p, options: {} }));
+                        this.renderArray(items);
+                        this._setStatus('rendered text from ' + url);
+                    }
+                } catch (err) {
+                    this._setError('Error fetching ' + url + ': ' + err.message);
+                    this._setStatus('error');
+                }
+            }
+        } // end class
+
+        // -------------------------
+        // Código de inicialización para el demo
+        // -------------------------
+        const renderer = new LaTeXRenderer({
+            container: '#renderContainer',
+            defaultOptions: { displayMode: true, throwOnError: false },
+            globalStyles: { fontSize: '22px', color: '#111' }
+        });
+
+        // DOM bindings
+        document.getElementById('renderBtn').addEventListener('click', () => {
+            const txt = document.getElementById('latexInput').value.trim();
+            if (!txt) { renderer._setError('Ingrese una fórmula LaTeX en el textarea'); return; }
+            // render single formula or multiple separated by blank line
+            const parts = txt.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+            const items = parts.map(p => ({ tex: p, options: { displayMode: true } }));
+            renderer.renderArray(items);
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => renderer.clear());
+
+        document.getElementById('fileInput').addEventListener('change', (ev) => {
+            // nothing - use button to trigger
+        });
+
+        document.getElementById('loadFileBtn').addEventListener('click', async () => {
+            const input = document.getElementById('fileInput');
+            if (!input.files || !input.files[0]) {
+                renderer._setError('Selecciona un archivo (.txt o .json) primero.');
+                return;
+            }
+            const file = input.files[0];
+            // If you want to send file to server or get URL, adapt this. For demo we'll read locally.
+            try {
+                const text = await file.text();
+                // decide if JSON
+                if (file.name.match(/\.json$/i)) {
+                    const data = JSON.parse(text);
+                    // support same JSON schema as renderFromURL expects
+                    if (data.rules && data.rules.globalStyles) {
+                        renderer.globalStyles = Object.assign({}, renderer.globalStyles, data.rules.globalStyles);
+                    }
+                    renderer.renderArray(data.formulas || []);
+                } else {
+                    // plain text -> split by blank lines into multiple formulas
+                    const parts = text.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+                    const items = parts.map(p => ({ tex: p, options: {} }));
+                    renderer.renderArray(items);
+                }
+            } catch (err) {
+                renderer._setError('Error leyendo archivo: ' + err.message);
+            }
+        });
+
+        // Simular que la IA manda fórmulas y reglas
+        document.getElementById('simulateAiBtn').addEventListener('click', () => {
+            const aiPayload = [
+                { tex: '\\displaystyle E = mc^2', options: { displayMode: true, style: { fontSize: '28px', color: '#0b6' } } },
+                { tex: 'c = \\sqrt{a^2 + b^2}', options: { displayMode: true } },
+                { tex: '\\int_{0}^{\\infty} e^{-x} \\, dx = 1', options: { displayMode: true } }
+            ];
+            // global style example
+            renderer.globalStyles = { fontSize: '20px', color: '#222' };
+            renderer.renderArray(aiPayload);
+        });
+
+        // Por conveniencia, render un ejemplo inicial
+        renderer.renderString('\\text{Bienvenido al renderer de fórmulas (KaTeX)}', { displayMode: false });
+
+    </script>
+</body>
+
+</html>
